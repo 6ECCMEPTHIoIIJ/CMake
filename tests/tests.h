@@ -1,18 +1,18 @@
-#ifndef INC_5E_TESTS_H
-#define INC_5E_TESTS_H
+#ifndef INC_LR_1_1_TESTS_H
+#define INC_LR_1_1_TESTS_H
 
 #include <stdio.h>
 #include <string.h>
 
-#define ASSERT_STRING(EXPECTED, GOT) \
-assertString(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_STRING_EQ(EXPECTED, GOT) \
+assertStringEq(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
 
-void assertString(const char* expected,
-                  const char* got,
-                  const char* fileName,
-                  const char* funcName,
-                  const size_t line) {
-  if (strcmp(expected, got)) {
+void assertStringEq(const char* expected,
+                    const char* got,
+                    const char* fileName,
+                    const char* funcName,
+                    const size_t line) {
+  if (strcmp(expected, got) != 0) {
     fprintf(stderr, "File %s\n", fileName);
     fprintf(stderr, "%s - failed on line %zu\n", funcName, line);
     fprintf(stderr, "Expected: \"%s\"\n", expected);
@@ -22,14 +22,14 @@ void assertString(const char* expected,
   }
 }
 
-#define ASSERT_INT(EXPECTED, GOT) \
-assertInt(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_INT_EQ(EXPECTED, GOT) \
+assertIntEq(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
 
-void assertInt(const int expected,
-               const int got,
-               const char* fileName,
-               const char* funcName,
-               const size_t line) {
+void assertIntEq(const int expected,
+                 const int got,
+                 const char* fileName,
+                 const char* funcName,
+                 const size_t line) {
   if (expected != got) {
     fprintf(stderr, "File %s\n", fileName);
     fprintf(stderr, "%s - failed on line %zu\n", funcName, line);
@@ -40,14 +40,14 @@ void assertInt(const int expected,
   }
 }
 
-#define ASSERT_SIZE(EXPECTED, GOT) \
-assertSize(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_SIZE_EQ(EXPECTED, GOT) \
+assertSizeEq(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
 
-void assertSize(const size_t expected,
-                const size_t got,
-                const char* fileName,
-                const char* funcName,
-                const size_t line) {
+void assertSizeEq(const size_t expected,
+                  const size_t got,
+                  const char* fileName,
+                  const char* funcName,
+                  const size_t line) {
   if (expected != got) {
     fprintf(stderr, "File %s\n", fileName);
     fprintf(stderr, "%s - failed on line %zu\n", funcName, line);
@@ -58,14 +58,14 @@ void assertSize(const size_t expected,
   }
 }
 
-#define ASSERT_PTR(EXPECTED, GOT) \
-assertPtr(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_PTR_EQ(EXPECTED, GOT) \
+assertPtrEq(EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
 
-void assertPtr(const void* expected,
-               const void* got,
-               const char* fileName,
-               const char* funcName,
-               const size_t line) {
+void assertPtrEq(const void* expected,
+                 const void* got,
+                 const char* fileName,
+                 const char* funcName,
+                 const size_t line) {
   if (expected != got) {
     fprintf(stderr, "File %s\n", fileName);
     fprintf(stderr, "%s - failed on line %zu\n", funcName, line);
@@ -76,4 +76,22 @@ void assertPtr(const void* expected,
   }
 }
 
-#endif // !INC_5E_TESTS_H
+#define ASSERT_PTR_NE(NOT_EXPECTED, GOT) \
+assertPtrNe(NOT_EXPECTED, GOT, __FILE__, __FUNCTION__, __LINE__)
+
+void assertPtrNe(const void* not_expected,
+                 const void* got,
+                 const char* fileName,
+                 const char* funcName,
+                 const size_t line) {
+  if (not_expected == got) {
+    fprintf(stderr, "File %s\n", fileName);
+    fprintf(stderr, "%s - failed on line %zu\n", funcName, line);
+    fprintf(stderr, "Expected: %p\n", not_expected);
+    fprintf(stderr, "Got: %p\n", got);
+  } else {
+    fprintf(stderr, "%s - OK\n", funcName);
+  }
+}
+
+#endif // !INC_LR_1_1_TESTS_H
